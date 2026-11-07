@@ -90,6 +90,27 @@ kable(
 
 Europe is by far the richest region on average and, together with Oceania, has the **lowest** average Gini coefficient (about 0.31). South America is the most unequal region (mean Gini of about 0.44) even though its average income is lower than Asia's, while Africa is the poorest region but not the most unequal.
 
+To check whether the overall pattern holds inside each region, the correlation table below shows the correlation between log GDP per capita and the Gini coefficient within each region.
+
+```{r correlation-by-region}
+region_correlation <- gini_gdp %>%
+  group_by(region) %>%
+  summarise(
+    countries = n(),
+    correlation = cor(log(gdp_per_capita), gini)
+  ) %>%
+  arrange(correlation)
+
+kable(
+  region_correlation,
+  digits = 2,
+  col.names = c("Region", "Number of countries",
+                "Correlation (log GDP vs Gini)"),
+  caption = paste("Correlation between log GDP per capita and the",
+                  "Gini coefficient within each region")
+)
+```
+
 # Visualisations
 
 ```{r gini-gdp-scatter, fig.cap = "Gini coefficient against GDP per capita (log scale) for each country, coloured by world region.", fig.width = 8, fig.height = 5}
