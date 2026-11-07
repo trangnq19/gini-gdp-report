@@ -1,0 +1,53 @@
+---
+title: "Are Richer Countries More Equal? Income Inequality and GDP per Capita"
+author: "Trang Nguyen"
+date: "`r format(Sys.Date(), '%d %B %Y')`"
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+# Loading libraries
+
+```{r load-libraries, include = TRUE}
+library(dplyr)
+library(readr)
+library(ggplot2)
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Research question
+
+Do countries with a higher GDP per capita have lower income inequality? We also ask whether this relationship looks the same across world regions.
+
+# Data set introduction
+
+The data come from the [Income inequality vs. GDP per capita](https://ourworldindata.org/grapher/gini-coefficient-vs-gdp-per-capita-pip) chart published by Our World in Data, which combines World Bank poverty and inequality estimates with GDP per capita figures. For each country, I kept the most recent year between 2015 and 2024 in which both inequality and GDP per capita were available.
+
+The variables `country` and `region` record each country's name and its world region. The variable `year` is the year of the latest inequality survey, and `gini` is the Gini coefficient, which ranges from 0 (everyone has the same income) to 1 (one person has all the income). The variable `gdp_per_capita` is GDP per person, adjusted for inflation and for differences in living costs between countries (international-$).
+
+```{r read-data}
+gini_gdp <- read_csv("Data/gini_gdp.csv")
+```
+
+```{r variable-table}
+variable_info <- tibble(
+  Variable = names(gini_gdp),
+  Description = c(
+    "Country name",
+    "World region (Our World in Data definition)",
+    "Year of the most recent inequality survey",
+    "Gini coefficient of income or consumption (0 to 1)",
+    "GDP per capita (international-$, adjusted for inflation)"
+  )
+)
+
+kable(variable_info, caption = "Variables in the data set")
+```
+
