@@ -51,3 +51,15 @@ variable_info <- tibble(
 kable(variable_info, caption = "Variables in the data set")
 ```
 
+# Data set description
+
+The data set contains `r nrow(gini_gdp)` observations and `r ncol(gini_gdp)` variables.
+
+```{r inline-code-image, echo = TRUE, out.width = "80%", fig.align = "center"}
+knitr::include_graphics("Image/inline_code.png")
+```
+
+```{r data-structure}
+str(head(gini_gdp, 2))
+```
+
