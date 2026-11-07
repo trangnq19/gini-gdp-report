@@ -111,6 +111,8 @@ kable(
 )
 ```
 
+Within most regions the correlation is close to zero, and in Africa and Asia it is even positive, meaning richer countries there are slightly more unequal. Oceania's value is based on only six countries, so it is not reliable. This suggests that the weak global relationship mainly reflects differences between regions rather than a pattern that holds inside each region.
+
 # Visualisations
 
 ```{r gini-gdp-scatter, fig.cap = "Gini coefficient against GDP per capita (log scale) for each country, coloured by world region.", fig.width = 8, fig.height = 5}
