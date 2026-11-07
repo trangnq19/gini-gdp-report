@@ -130,6 +130,19 @@ ggplot(gini_gdp, aes(x = gdp_per_capita, y = gini, colour = region)) +
 - *Richer countries tend to have slightly lower inequality, but the points are widely spread and the correlation between log GDP per capita and the Gini coefficient is only `r round(cor(log(gini_gdp$gdp_per_capita), gini_gdp$gini), 2)`.*
 - *Countries group by region more than by income: European countries sit at the bottom of the chart, while South and North American countries sit higher at similar income levels.*
 
+The boxplot below compares the spread of the Gini coefficient within each region.
+
+```{r gini-boxplot, fig.cap = "Distribution of the Gini coefficient by world region, ordered by median.", fig.width = 8, fig.height = 4.5}
+ggplot(gini_gdp,
+       aes(x = reorder(region, gini, FUN = median), y = gini, fill = region)) +
+  geom_boxplot(alpha = 0.7, show.legend = FALSE) +
+  coord_flip() +
+  labs(x = NULL, y = "Gini coefficient") +
+  theme_minimal()
+```
+
+Europe has the lowest median, while South and North America have the highest medians. Africa shows the widest spread, from fairly equal to very unequal countries, so its regional average hides large differences between countries.
+
 # Conclusions
 
-The data give limited support to the idea that richer countries are more equal. Across all countries, higher GDP per capita goes together with a slightly lower Gini coefficient, but the relationship is weak and many countries do not follow it. The world region seems to matter more: Europe is both rich and equal, the Americas are unequal at many income levels, and Africa and Asia show a wide spread. These results show an association, not a cause. Differences in tax and welfare systems, history and how inequality is measured (income in some countries, consumption in others) could explain the pattern. The survey years also differ between countries, so the comparison is not perfectly like for like.
+The data give only weak support to the idea that richer countries are more equal. Across all countries, higher GDP per capita goes together with a slightly lower Gini coefficient, but within most regions this link almost disappears. The global pattern is mainly driven by differences between regions: Europe is both rich and equal, the Americas are unequal at many income levels, and Africa shows the widest range of inequality. These results show an association, not a cause. Tax and welfare systems, history and how inequality is measured (income in some countries, consumption in others) could explain the pattern, and survey years differ between countries. Future work could add these factors to test which ones best explain inequality.
