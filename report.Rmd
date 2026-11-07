@@ -63,3 +63,30 @@ knitr::include_graphics("Image/inline_code.png")
 str(head(gini_gdp, 2))
 ```
 
+# Data summary
+
+```{r summary-by-region}
+region_summary <- gini_gdp %>%
+  select(region, gini, gdp_per_capita) %>%
+  group_by(region) %>%
+  summarise(
+    mean_gini = mean(gini),
+    sd_gini = sd(gini),
+    mean_gdp = mean(gdp_per_capita),
+    sd_gdp = sd(gdp_per_capita)
+  ) %>%
+  arrange(desc(mean_gdp))
+
+kable(
+  head(region_summary, 10),
+  digits = c(0, 3, 3, 0, 0),
+  format.args = list(big.mark = ","),
+  col.names = c("Region", "Mean Gini", "SD Gini",
+                "Mean GDP per capita", "SD GDP per capita"),
+  caption = paste("Mean and standard deviation of the Gini coefficient",
+                  "and GDP per capita by world region")
+)
+```
+
+Europe is by far the richest region on average and, together with Oceania, has the **lowest** average Gini coefficient (about 0.31). South America is the most unequal region (mean Gini of about 0.44) even though its average income is lower than Asia's, while Africa is the poorest region but not the most unequal.
+
